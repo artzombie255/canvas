@@ -1,4 +1,4 @@
-// Array(16).join("wat" - 1) + " batman!";
+Array(16).join("wat" - 1) + " batman!";
 
 // const width = 300;
 // const height = 300;
@@ -17,7 +17,7 @@
 
 const width = 300;
 const height = 300;
-
+var p = 125;
 var count = 0;
 var elapsedQuarterSeconds = 0;
 const canvas = document.getElementById("sandbox");
@@ -270,4 +270,94 @@ function drawAnimation() {
     console.log("elapsed quarter seconds ", elapsedQuarterSeconds);
   }
   window.requestAnimationFrame(drawAnimation);
+}
+function drawPong() {
+  var p = 125;
+
+  context.fillStyle = "white";
+  context.fillRect(0, 0, 300, 300);
+
+  context.beginPath();
+  context.fillStyle = "black";
+  context.fillRect(255, p, 5, 50);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 0, 2, 300);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 298, 300, 2);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 0, 300, 2);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(298, 0, 2, 298);
+  context.stroke();
+}
+
+function up() {
+  p = p - 15;
+  context.fillStyle = "white";
+  context.fillRect(0, 0, 300, 300);
+
+  context.beginPath();
+  context.fillStyle = "black";
+  context.fillRect(255, p, 5, 50);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 0, 2, 300);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 298, 300, 2);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 0, 300, 2);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(298, 0, 2, 298);
+  context.stroke();
+}
+
+function down() {
+  p = p + 15;
+  context.fillStyle = "white";
+  context.fillRect(0, 0, 300, 300);
+
+  context.beginPath();
+  context.fillStyle = "black";
+  context.fillRect(255, p, 5, 50);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 0, 2, 300);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 298, 300, 2);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(0, 0, 300, 2);
+  context.stroke();
+
+  context.beginPath();
+  context.fillRect(298, 0, 2, 298);
+  context.stroke();
+}
+
+if (m > 280) {
+  p = p - 15;
+  console.log("going down", p);
+}
+if (p < 5) {
+  p = p + 15;
+  console.log("going up", p);
 }
