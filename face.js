@@ -1,4 +1,12 @@
 Array(16).join("wat" - 1) + " batman!";
+const CANVAS_WIDTH = 300;
+const CANVAS_HEIGHT = 300;
+const canvas = document.getElementById("sandbox");
+const CANVAS_CONTEXT = canvas.getContext("2d");
+canvas.style.width = CANVAS_WIDTH + "px";
+canvas.style.height = CANVAS_HEIGHT + "px";
+
+const context = CANVAS_CONTEXT;
 
 // const width = 300;
 // const height = 300;
@@ -14,16 +22,10 @@ Array(16).join("wat" - 1) + " batman!";
 //     context.fillRect(i, i, i, i);
 //   }
 // }
-const width = 300;
-const height = 300;
 var dice = 10;
 var p = 125;
 var count = 0;
 var elapsedQuarterSeconds = 0;
-const canvas = document.getElementById("sandbox");
-const context = canvas.getContext("2d");
-canvas.style.width = width + "px";
-canvas.style.height = height + "px";
 
 function startDrawing() {
   window.requestAnimationFrame(drawAnimation);
@@ -85,12 +87,14 @@ function draw() {
   // count++;
   // window.requestAnimationFrame(draw);
 }
-// function clear() {
-//   context.fillStyle = "blue";
-//   context.fillRect(0, 0, 300, 300);
 
-//   context.lineWidth = 5;
-// }
+function clearCanvas() {
+  console.log("clear");
+  context.fillStyle = "white";
+  context.fillRect(0, 0, 300, 300);
+
+  context.lineWidth = 5;
+}
 
 function drawAnimation() {
   context.fillStyle = "white";
@@ -330,6 +334,11 @@ function up() {
   context.beginPath();
   context.fillRect(298, 0, 2, 298);
   context.stroke();
+
+  if (p < 5) {
+    p = p + 15;
+    console.log("going up", p);
+  }
 }
 
 function down() {
@@ -357,15 +366,11 @@ function down() {
   context.beginPath();
   context.fillRect(298, 0, 2, 298);
   context.stroke();
-}
 
-if (m > 280) {
-  p = p - 15;
-  console.log("going down", p);
-}
-if (p < 5) {
-  p = p + 15;
-  console.log("going up", p);
+  if (p > 245) {
+    p = p - 15;
+    console.log("going down", p);
+  }
 }
 
 function rollADie() {
