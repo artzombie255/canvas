@@ -14,9 +14,9 @@ Array(16).join("wat" - 1) + " batman!";
 //     context.fillRect(i, i, i, i);
 //   }
 // }
-
 const width = 300;
 const height = 300;
+var dice = 10;
 var p = 125;
 var count = 0;
 var elapsedQuarterSeconds = 0;
@@ -85,6 +85,12 @@ function draw() {
   // count++;
   // window.requestAnimationFrame(draw);
 }
+// function clear() {
+//   context.fillStyle = "blue";
+//   context.fillRect(0, 0, 300, 300);
+
+//   context.lineWidth = 5;
+// }
 
 function drawAnimation() {
   context.fillStyle = "white";
@@ -360,4 +366,24 @@ if (m > 280) {
 if (p < 5) {
   p = p + 15;
   console.log("going up", p);
+}
+
+function rollADie() {
+  context.fillStyle = "white";
+  context.fillRect(0, 0, 300, 300);
+
+  var diceRoll = Math.floor(Math.random() * 6 + 1);
+  context.beginPath();
+  context.arc(diceRoll * 30, dice, 10, 0, 2 * Math.PI);
+  context.stroke();
+  context.fillStyle = "black";
+  context.fill();
+  dice = dice + 0.5;
+  console.log("the number is", diceRoll);
+  // window.requestAnimationFrame(rollADie);
+  // count++;
+  // if (count % 100 === 0) {
+  //   window.requestAnimationFrame();
+  //   return;
+  // }
 }
