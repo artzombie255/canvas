@@ -7,6 +7,129 @@ canvas.style.width = CANVAS_WIDTH + "px";
 canvas.style.height = CANVAS_HEIGHT + "px";
 
 const context = CANVAS_CONTEXT;
+var score = 0;
+var balls = [];
+var paddle = { x: 50, y: 100, w: 5, h: 60 };
+var Key = {
+  DOWN: 40,
+  UP: 38,
+};
+function addBall() {
+  const randomPosition = {
+    x: 250,
+    y: 150,
+  };
+
+  const randomVelocity = {
+    x: -2,
+    y: -2,
+  };
+  const newBall = {
+    position: randomPosition,
+    velocity: randomVelocity,
+  };
+  balls.push(newBall);
+}
+
+window.addEventListener("keydown", (event) => {
+  const distance = 10;
+  switch (event.keyCode) {
+    case Key.UP:
+      paddle.y -= distance;
+      break;
+    case Key.DOWN:
+      paddle.y += distance;
+      break;
+  }
+});
+
+function drawPong() {
+  context.fillStyle = "black";
+  context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  context.fillStyle = "wheat";
+  context.fillRect(2, 2, CANVAS_WIDTH - 4, CANVAS_HEIGHT - 4);
+
+  context.fillStyle = "green";
+  context.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
+
+  balls.forEach((ball) => {
+    context.fillStyle = "black";
+    context.beginPath();
+    context.arc(ball.position.x, ball.position.y, 5, 0, 2 * Math.PI);
+    context.stroke();
+    context.fill();
+
+    // check for walls
+
+    // check for left and right walls
+    if (ball.position.x < 0 || ball.position.x > CANVAS_WIDTH) {
+      ball.velocity.x *= -1;
+    }
+    // check for top and bottom walls
+    if (ball.position.y < 0 || ball.position.y > CANVAS_HEIGHT) {
+      ball.velocity.y *= -1;
+    }
+
+    // check for collisions
+    var newPosition = {
+      x: ball.position.x + ball.velocity.x,
+      y: ball.position.y + ball.velocity.y,
+    };
+
+    const paddleRightSide = paddle.x + paddle.w;
+    const paddleBottomSide = paddle.y + paddle.h;
+    const hHitTest =
+      newPosition.x > paddle.x && newPosition.x < paddleRightSide;
+    const vHitText =
+      newPosition.y > paddle.y && newPosition.y < paddleBottomSide;
+    // if new ball position hits the paddle at all
+    if (hHitTest && vHitText) {
+      const ballWillIntersectLeftPaddlePosition =
+        ball.position.x < paddle.x && newPosition.x > paddle.x;
+      const ballWillIntersectRightPaddlePosition =
+        ball.position.x > paddleRightSide && newPosition.x < paddleRightSide;
+      if (
+        ballWillIntersectLeftPaddlePosition ||
+        ballWillIntersectRightPaddlePosition
+      ) {
+        ball.velocity.x *= -1;
+      }
+      const ballWillIntersectTopPaddlePosition =
+        ball.position.y < paddle.y && newPosition.y > paddle.y;
+      const ballWillIntersectBottomPaddlePosition =
+        ball.position.y > paddleBottomSide && newPosition.y < paddleBottomSide;
+      if (
+        ballWillIntersectTopPaddlePosition ||
+        ballWillIntersectBottomPaddlePosition
+      ) {
+        ball.velocity.y *= -1;
+      }
+    }
+
+    ball.position.x += ball.velocity.x;
+    ball.position.y += ball.velocity.y;
+    if (ball.position.x < 20) {
+      count = 0;
+      score = 0;
+      console.log(score);
+    }
+    if (ball.position.x > 280) {
+      count++;
+    }
+    if (count === 21) {
+      score++;
+      count = 0;
+      console.log(score);
+      text("score: " + score, 450, 50);
+    }
+    function text(text, x, y) {
+      context.fillStyle = "black";
+      context.fillText(text, x, y);
+    }
+  });
+
+  window.requestAnimationFrame(drawPong);
+}
 
 // const width = 300;
 // const height = 300;
@@ -281,97 +404,97 @@ function drawAnimation() {
   }
   window.requestAnimationFrame(drawAnimation);
 }
-function drawPong() {
-  var p = 125;
+// function drawPong() {
+//   var p = 125;
 
-  context.fillStyle = "white";
-  context.fillRect(0, 0, 300, 300);
+//   context.fillStyle = "white";
+//   context.fillRect(0, 0, 300, 300);
 
-  context.beginPath();
-  context.fillStyle = "black";
-  context.fillRect(255, p, 5, 50);
-  context.stroke();
+//   context.beginPath();
+//   context.fillStyle = "black";
+//   context.fillRect(255, p, 5, 50);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 0, 2, 300);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 0, 2, 300);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 298, 300, 2);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 298, 300, 2);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 0, 300, 2);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 0, 300, 2);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(298, 0, 2, 298);
-  context.stroke();
-}
+//   context.beginPath();
+//   context.fillRect(298, 0, 2, 298);
+//   context.stroke();
+// }
 
-function up() {
-  p = p - 15;
-  context.fillStyle = "white";
-  context.fillRect(0, 0, 300, 300);
+// function up() {
+//   p = p - 15;
+//   context.fillStyle = "white";
+//   context.fillRect(0, 0, 300, 300);
 
-  context.beginPath();
-  context.fillStyle = "black";
-  context.fillRect(255, p, 5, 50);
-  context.stroke();
+//   context.beginPath();
+//   context.fillStyle = "black";
+//   context.fillRect(255, p, 5, 50);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 0, 2, 300);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 0, 2, 300);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 298, 300, 2);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 298, 300, 2);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 0, 300, 2);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 0, 300, 2);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(298, 0, 2, 298);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(298, 0, 2, 298);
+//   context.stroke();
 
-  if (p < 5) {
-    p = p + 15;
-    console.log("going up", p);
-  }
-}
+//   if (p < 5) {
+//     p = p + 15;
+//     console.log("going up", p);
+//   }
+// }
 
-function down() {
-  p = p + 15;
-  context.fillStyle = "white";
-  context.fillRect(0, 0, 300, 300);
+// function down() {
+//   p = p + 15;
+//   context.fillStyle = "white";
+//   context.fillRect(0, 0, 300, 300);
 
-  context.beginPath();
-  context.fillStyle = "black";
-  context.fillRect(255, p, 5, 50);
-  context.stroke();
+//   context.beginPath();
+//   context.fillStyle = "black";
+//   context.fillRect(255, p, 5, 50);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 0, 2, 300);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 0, 2, 300);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 298, 300, 2);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 298, 300, 2);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(0, 0, 300, 2);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(0, 0, 300, 2);
+//   context.stroke();
 
-  context.beginPath();
-  context.fillRect(298, 0, 2, 298);
-  context.stroke();
+//   context.beginPath();
+//   context.fillRect(298, 0, 2, 298);
+//   context.stroke();
 
-  if (p > 245) {
-    p = p - 15;
-    console.log("going down", p);
-  }
-}
+//   if (p > 245) {
+//     p = p - 15;
+//     console.log("going down", p);
+//   }
+// }
 
 function rollADie() {
   context.fillStyle = "white";
@@ -390,5 +513,4 @@ function rollADie() {
   // if (count % 100 === 0) {
   //   window.requestAnimationFrame();
   //   return;
-  // }
 }
