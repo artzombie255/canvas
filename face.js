@@ -120,11 +120,6 @@ function drawPong() {
       score++;
       count = 0;
       console.log(score);
-      text("score: " + score, 450, 50);
-    }
-    function text(text, x, y) {
-      context.fillStyle = "black";
-      context.fillText(text, x, y);
     }
   });
 
@@ -404,6 +399,7 @@ function drawAnimation() {
   }
   window.requestAnimationFrame(drawAnimation);
 }
+
 // function drawPong() {
 //   var p = 125;
 
@@ -495,6 +491,10 @@ function drawAnimation() {
 //     console.log("going down", p);
 //   }
 // }
+function SSB(params) {
+  context.fillstyle = "black";
+  context.fillrect(0, 0, 150, 150);
+}
 
 function rollADie() {
   context.fillStyle = "white";
