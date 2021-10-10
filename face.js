@@ -561,8 +561,8 @@ function SSB() {
   }
 }
 function rollADie() {
-  context.fillStyle = "white";
-  context.fillRect(0, 0, 300, 300);
+  //context.fillStyle = "white";
+  //context.fillRect(0, 0, 300, 300);
 
   var diceRoll = Math.floor(Math.random() * 6 + 1);
   context.beginPath();
