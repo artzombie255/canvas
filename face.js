@@ -491,11 +491,10 @@ function drawAnimation() {
 //     console.log("going down", p);
 //   }
 // }
-function SSB(params) {
-  context.fillstyle = "black";
-  context.fillRect(0, 0, 150, 150);
+function SSB() {
+  context.fillStyle = "black";
+  context.fillRect(0, 0, 300, 300);
 }
-
 function rollADie() {
   context.fillStyle = "white";
   context.fillRect(0, 0, 300, 300);
