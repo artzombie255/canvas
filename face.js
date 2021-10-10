@@ -493,7 +493,7 @@ function drawAnimation() {
 // }
 function SSB(params) {
   context.fillstyle = "black";
-  context.fillrect(0, 0, 150, 150);
+  context.fillRect(0, 0, 150, 150);
 }
 
 function rollADie() {
