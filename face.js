@@ -491,6 +491,13 @@ function drawAnimation() {
 //     console.log("going down", p);
 //   }
 // }
+
+
+var dice = 10;
+var p = 125;
+var count = 0;
+var elapsedQuarterSeconds = 0;
+
 function SSB() {
   function startDrawing() {
     window.requestAnimationFrame(drawAnimation);
