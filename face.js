@@ -499,6 +499,7 @@ var count = 0;
 var elapsedQuarterSeconds = 0;
 
 function SSB() {
+  console.log ("hello")
   function startDrawing() {
     window.requestAnimationFrame(drawAnimation);
   }
@@ -521,7 +522,7 @@ function SSB() {
     context.arc(125, 150, 50, 0, Math.PI);
     // context.strokeStyle = "blue";
     context.stroke();
-  
+
     context.beginPath();
     context.arc(75, 100, 20, 0, 2 * Math.PI);
     context.stroke();
@@ -547,7 +548,7 @@ function SSB() {
     context.beginPath();
     context.arc(70, 100, 5, 0, 2 * Math.PI);
     context.stroke();
-    context.fillStyle = "red";
+    context.fillStyle = "black";
     context.fill();
   
     context.beginPath();
@@ -559,6 +560,7 @@ function SSB() {
     // count++;
     // window.requestAnimationFrame(draw);
   }
+  draw()
 }
 function rollADie() {
   //context.fillStyle = "white";
